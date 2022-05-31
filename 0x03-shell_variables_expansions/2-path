@@ -1,2 +1,2 @@
 #!/bin/bash
-alias mv ="action -PATH"
+alias cp ="action -PATH"

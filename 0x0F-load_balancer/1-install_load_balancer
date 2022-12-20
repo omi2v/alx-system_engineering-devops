@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
-#to configure a new server
-config="
-frontend your_front_end_name
-    bind *:80
-    mode http
-    default_backend your_backend_name
+# Install the load balancer
 
-backend your_backend_name
-    balance roundrobin
-    server your_server_01_name your_server_01_ip:80 check
-    server your_server_02_name your_server_02_ip:80 check
-"
+
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install haproxy
+sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
+sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.original
+sudo sed -i "$ a\listen 540-lb-01\n\tbind *:80\n\tmode http\n\tbalance roundrobin\n\toption httpclose\n\toption forwardfor\n\tserver 49753-web-02 54.157.162.63:80 check\n\tserver 49753-web-01 54.173.85.60:80 check" /etc/haproxy/haproxy.cfg
+sudo service haproxy start

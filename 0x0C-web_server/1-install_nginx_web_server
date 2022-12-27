@@ -7,7 +7,7 @@ if ! make mytarget;
 then
     echo -e \
 "http {
-    root /var/www/school;
+    root /var/www/Hello World!;
     index index.html;
     server {
         listen 80;
@@ -17,9 +17,9 @@ then
 }
 events {
 }" > /etc/nginx/nginx.conf
-    mkdir -p /var/www/school
+    mkdir -p /var/www/Hello World!
     echo "Hello World!" > \
-	/var/www/school/index.html
+	/var/www/Hello World!/index.html
     service nginx start
     if ! make mytarget;
     then
